@@ -1,5 +1,6 @@
 const Product = require("../models/product");
 const Order = require("../models/order");
+
 exports.getProducts = (req, res, next) => {
   Product.find()
     .then((product) => {
@@ -8,6 +9,7 @@ exports.getProducts = (req, res, next) => {
         prods: product,
         pageTitle: "All Products",
         path: "/products",
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => console.log(err));
@@ -21,6 +23,7 @@ exports.getProduct = (req, res, next) => {
         product: product,
         pageTitle: product.title,
         path: "/products",
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => {
@@ -35,6 +38,7 @@ exports.getIndex = (req, res, next) => {
         prods: product,
         pageTitle: "shop",
         path: "/",
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => console.log(err));
@@ -50,6 +54,7 @@ exports.getCart = (req, res, next) => {
         path: "/cart",
         pageTitle: "Your Cart",
         products: products,
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => console.log(err));
@@ -113,6 +118,7 @@ exports.getOrders = (req, res, next) => {
         path: "/orders",
         pageTitle: "Your Orders",
         orders: orders,
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => console.log(err));
